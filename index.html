@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.3/dist/mindar-image-aframe.prod.min.js"></script>
+    <script src="./scene-controller.js"></script>
+  </head>
+  <body>
+    <a-scene
+      mindar-image="imageTargetSrc: https://cdn.glitch.global/966d8b79-e7c8-4db9-88a3-44874315366d/targets.mind?v=1746808944124; 
+                    uiScanning:no;
+                    filterMinCF:0.0001; filterBeta: 0.003"
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+      scene-controller
+    >
+      <!-- Assets List -->
+      <a-assets>
+        <img
+          id="myimage"
+          crossorigin="anonymous"
+          src="./assets/play-icon2.png"
+        />
+      </a-assets>
+
+      <a-entity id="marker" mindar-image-target="targetIndex: 0">
+        <a-entity position="0 0 0.1">
+          <a-gltf-model
+            id="model"
+            src="https://cdn.glitch.global/966d8b79-e7c8-4db9-88a3-44874315366d/CesarCampos.glb?v=1743064838914"
+            position="0 -0.2 0"
+            rotation="0 5 0"
+            scale="0.25 0.25 0.25"
+          >
+          </a-gltf-model>
+          <a-image
+            id="btnPlay"
+            class ="clickable"
+            src="#myimage"
+            color="white"
+            position="0 0.1 0.2"
+            scale=".15 .15 .15"
+          ></a-image>
+        </a-entity>
+      </a-entity>
+
+      <!-- Scene Elements (Light & Camera) -->
+      <a-camera
+        position="0 0 0"
+        look-controls="enabled: false"
+        cursor="fuse: false; rayOrigin: mouse;"
+        raycaster="far: ${customFields.libVersion}; objects: .clickable"
+      ></a-camera>
+      <a-entity
+        light="type: directional; color: #FFF; intensity: 0.6"
+        position="-0.5 1 1"
+      ></a-entity>
+      <a-light type="ambient" color="#FFF"></a-light>
+    </a-scene>
+  </body>
+</html>
